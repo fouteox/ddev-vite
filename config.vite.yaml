@@ -5,6 +5,6 @@ web_extra_exposed_ports:
     https_port: 5173
 
 web_extra_daemons:
-  - name: reverb
+  - name: vite
     command: "cd ${DDEV_COMPOSER_ROOT} && ${JAVASCRIPT_PACKAGE_MANAGER} run dev"
     directory: /var/www/html
