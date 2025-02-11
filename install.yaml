@@ -2,3 +2,7 @@ name: vite
 
 project_files:
   - config.vite.yaml
+
+post_install_actions:
+  - chmod +x ${DDEV_APPROOT}/.ddev/vite/setup.sh
+  - ${DDEV_APPROOT}/.ddev/vite/setup.sh
