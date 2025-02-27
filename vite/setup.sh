@@ -1,6 +1,8 @@
 #!/bin/bash
 #ddev-generated
-CONFIG_FILE="${DDEV_APPROOT}/vite.config.js"
+
+JS_CONFIG="${DDEV_APPROOT}/vite.config.js"
+TS_CONFIG="${DDEV_APPROOT}/vite.config.ts"
 
 sed_inplace() {
   if [[ "$(uname)" == "Darwin" ]]; then
@@ -9,6 +11,14 @@ sed_inplace() {
     sed -i "$@"
   fi
 }
+
+if [ -f "$JS_CONFIG" ]; then
+  CONFIG_FILE="$JS_CONFIG"
+elif [ -f "$TS_CONFIG" ]; then
+  CONFIG_FILE="$TS_CONFIG"
+else
+  exit 0
+fi
 
 if [ -f "$CONFIG_FILE" ]; then
   sed_inplace "/export default defineConfig/ i\\
@@ -24,7 +34,7 @@ const origin = \`\${process.env.DDEV_PRIMARY_URL}:\${port}\`;\\
         strictPort: true,\\
         origin: origin,\\
         cors: {\\
-            origin: { origin: process.env.DDEV_PRIMARY_URL },\\
+            origin: process.env.DDEV_PRIMARY_URL,\\
         },\\
     },/g" "$CONFIG_FILE"
 fi
