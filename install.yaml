@@ -5,5 +5,4 @@ project_files:
   - vite/
 
 post_install_actions:
-  - chmod +x ${DDEV_APPROOT}/.ddev/vite/setup.sh
-  - ${DDEV_APPROOT}/.ddev/vite/setup.sh
+  - docker run --rm -v ${DDEV_APPROOT}:/app python:3-alpine python /app/.ddev/vite/vite_config_updater.py
